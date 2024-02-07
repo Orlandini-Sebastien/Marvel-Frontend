@@ -3,8 +3,23 @@ import axios from 'axios'
 import { Link } from 'react-router-dom'
 
 const Characters = () => {
+	const descriptionToggleInitial: boolean[] = new Array(100).fill(false)
 	const [isLoading, setIsLoading] = useState(true)
 	const [data, setData] = useState([])
+	const [descriptionToggle, setDescriptionToggle] = useState(
+		descriptionToggleInitial
+	)
+
+	const handleDescription = (index: number) => {
+		const newValue = [...descriptionToggle]
+		console.log('index', index)
+		console.log(newValue[index])
+		if (newValue[index] === false) newValue[index] = true
+		else newValue[index] = false
+		setDescriptionToggle(newValue)
+		console.log('je viens de clique')
+		console.log('state >>>', descriptionToggle)
+	}
 
 	useEffect(() => {
 		console.log('dedans')
@@ -22,57 +37,66 @@ const Characters = () => {
 		fetchData()
 	}, [])
 
-	{
-		console.log('Dans characters >>', data)
-	}
-
 	return isLoading ? (
 		<div className="flex h-[85vh] w-screen justify-center items-center">
 			Loding ...
 		</div>
 	) : (
-		<section className="m-auto w-5/6">
-			<h1 className="flex justify-center  h-12 items-center font-bold">
-			
-				Liste des personnages
+		<main className='bg-black '>
+					<section className="m-auto w-5/6">
+			<h1 className="flex justify-center  h-12 items-center font-bold text-white">
+				Characters
 			</h1>
 			<div className="flex flex-wrap justify-center ">
-				{data.map((character) => {
+				{data.map((character, index) => {
 					return (
-						
-						<Link
-							className="relative min-w-52  m-2 border-4 border-solid  rounded shadow-2xl flex flex-col w-[18%] h-96  "
-							to={`/character/${character._id}`}
-							state={{ from: '/characters', character: character.name }}
-							key={character._id}
-						>
-							<img
-								className="h-full object-cover"
-								src={`${character.thumbnail.path}/portrait_uncanny\.${character.thumbnail.extension}`}
-								alt={`image de ${character.name}`}
-							/>
-
-							<div className="absolute font-bold w-full ">
-								<div className="flex justify-center bg-red-300 bg-opacity-60">
-									{character.name}
-								</div>
-							</div>
-
-							<div
-								className={
-									character.description ?
-									'absolute h-20 bottom-0 font-bold  w-full bg-red-300 bg-opacity-60 ' : 'hidden'
-								}
+						<div className="relative ">
+							<Link
+								className="shadow-white shadow-xl relative min-w-60  my-2  border-2 border-solid border-white  rounded flex flex-col w-[18%] h-96  "
+								to={`/character/${character._id}`}
+								state={{ from: '/characters', character: character.name }}
+								key={character._id}
 							>
-								<div className="flex h-20 overflow-hidden overflow-y-scroll   ">
+								<img
+									className="h-full object-cover"
+									src={`${character.thumbnail.path}/portrait_uncanny\.${character.thumbnail.extension}`}
+									alt={`image de ${character.name}`}
+								/>
+
+								<div className="absolute font-bold w-full  ">
+									<div className="flex justify-center bg-red-300 bg-opacity-60 rounded">
+										{character.name}
+									</div>
+								</div>
+
+								<div
+									className={
+										descriptionToggle[index]
+											? 'absolute top-12 font-bold  w-full bg-red-300 bg-opacity-60 flex rounded  '
+											: 'hidden'
+									}
+								>
 									{character.description}
 								</div>
-							</div>
-						</Link>
+							</Link>
+
+							<button
+								className={
+									character.description
+										? 'right-[36%] absolute z-10 bg-slate-100 bg-opacity-70  rounded bottom-4 border-2 border-red-400 '
+										: 'hidden'
+								}
+								onClick={() => handleDescription(index)}
+							>
+								description
+							</button>
+						</div>
 					)
 				})}
 			</div>
 		</section>
+		</main>
+
 	)
 }
 
