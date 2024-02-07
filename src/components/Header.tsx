@@ -13,7 +13,7 @@ const Header = () => {
 				</div>
 				<div className="flex justify-around w-full h-full items-center">
 					<Link to={'/comics'}> Comics</Link>
-					<Link to={'/characters'}> Characters</Link>
+					<Link to={'/'}> Characters</Link>
 				</div>
 				<div className="flex justify-around w-full h-full items-center">
 					<Link to={'/signin'}> Sign In</Link>
