@@ -3,6 +3,16 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 
+type comicType = {
+	_id: string
+	title: string
+	thumbnail: {
+		path: string
+		extension: string
+	}
+	description: string
+}
+
 const Character = () => {
 	const { id } = useParams()
 	const location = useLocation()
@@ -18,14 +28,14 @@ const Character = () => {
 			try {
 				const response = await axios.get(`http://localhost:3000/comic/${id}`)
 				console.log('response', response)
-				setData(response.data)
+				setData(response.data.comics)
 			} catch (error) {
 				console.log('catch app>>>', error)
 			}
 			setIsLoading(false)
 		}
 		fetchData()
-	}, [])
+	})
 
 	{
 		console.log('Dans character >>>>>', data)
@@ -36,13 +46,13 @@ const Character = () => {
 			Loding ...
 		</div>
 	) : (
-		<main className='bg-black'>
+		
 		<section className="m-auto w-5/6">
 			<h1 className="flex justify-center  h-12 items-center font-bold text-white">
 				Les aventures de {location.state.character}
 			</h1>
-			<div className="flex flex-wrap justify-center ">
-				{data.comics.map((comic) => {
+			<div className="flex flex-wrap justify-center w-full ">
+				{data.map((comic : comicType) => {
 					return (
 						<div
 							className={(comic.thumbnail.path && comic.thumbnail.extension) ? "shadow-white shadow-xl relative min-w-52  m-2 border-2 border-solid border-white rounded flex flex-col w-[18%] h-96" : "hidden"}   
@@ -50,15 +60,15 @@ const Character = () => {
 						>
 							<img
 								className="h-full object-cover"
-								src={`${comic.thumbnail.path}\.${comic.thumbnail.extension}`}
-								alt={`image de ${comic.name}`}
+								src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+								alt={`image de ${comic.title}`}
 							/>
 						</div>
 					)
 				})}
 			</div>
 		</section>	
-		</main>
+
 		
 	)
 }

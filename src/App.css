@@ -7,8 +7,6 @@
     src: local('Marvel'), url(./font/Marvel/Marvel-Bold.ttf)format('truetype');
 }
 
-html{
-    font-family: Marvel;
-    font-size: x-large;
-    font-weight: bold;
+body{
+    background-color: black;
 }
