@@ -14,11 +14,15 @@ type characterType = {
 
 const Characters = () => {
 	const descriptionToggleInitial: boolean[] = new Array(100).fill(false)
+	const favoritToggleInitial: boolean[] = new Array(100).fill(false)
 	const [isLoading, setIsLoading] = useState(true)
 	const [data, setData] = useState([])
 	const [page, setPage] = useState(0)
 	const [descriptionToggle, setDescriptionToggle] = useState(
 		descriptionToggleInitial
+	)
+	const [favoritToggle, setFavoritToggle] = useState(
+		favoritToggleInitial
 	)
 	const [searchCharacter, setSearchCharacter] = useState('')
 
@@ -31,8 +35,10 @@ const Characters = () => {
 	}
 
 	const pagination = () => {
-		console.log(data.length)
-		const array: number[] = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14]
+		const array: number[] = []
+		for (let i = 0; i < nbPage; i++) {
+			array.push(i)
+		}
 		const newArray = array.map((number, index) => {
 			return (
 				<button
@@ -59,16 +65,26 @@ const Characters = () => {
 		console.log('je viens de clique')
 		console.log('state >>>', descriptionToggle)
 	}
+	const handleFavorite = (index: number) => {
+		const newValue = [...favoritToggle]
+		console.log('index', index)
+		console.log(newValue[index])
+		if (newValue[index] === false) newValue[index] = true
+		else newValue[index] = false
+		setFavoritToggle(newValue)
+		console.log('je viens de clique')
+		console.log('state >>>', favoritToggle)
+	}
+
+	const [nbPage, setNbpage] = useState(0)
 
 	useEffect(() => {
-		console.log('dedans')
-
 		const fetchData = async () => {
 			try {
+				// Pour afficher la page
 				const response = await axios.get(
 					`http://localhost:3000/characters?page=${page}&character=${searchCharacter}`
 				)
-
 				setData(response.data)
 			} catch (error) {
 				console.log('catch app>>>', error)
@@ -76,6 +92,28 @@ const Characters = () => {
 			setIsLoading(false)
 		}
 		fetchData()
+
+		const fetchPage = async () => {
+			try {
+				// Pour trouver le nombre de page
+				let firstPage: number = 0
+				let initial: number = 1
+				while (initial > 0) {
+					const ask = await axios.get(
+						`http://localhost:3000/characters?page=${firstPage}&character=${searchCharacter}`
+					)
+					initial = ask.data.length
+
+					if (initial !== 0) {
+						firstPage += 1
+					}
+				}
+				setNbpage(firstPage)
+			} catch (error) {
+				console.log('catch app>>>', error)
+			}
+		}
+		fetchPage()
 	}, [page, searchCharacter])
 
 	return isLoading ? (
@@ -83,90 +121,90 @@ const Characters = () => {
 			Loding ...
 		</div>
 	) : (
-		
-			<section className="m-auto w-5/6">
-				<div className="flex justify-center items-center">
-					<label
-						htmlFor="searchCharacter"
-						className="flex justify-center  h-12 items-center font-bold text-white"
-					>
-						Characters
-					</label>
-					<input
-						type="text"
-						placeholder="search"
-						id="searchCharacter"
-						name="searchCharacter"
-						value={searchCharacter}
-						onChange={handlesearchCharacter}
-						className="bg-red-100 rounded h-7 mx-2"
-					/>
-				</div>
+		<section className="m-auto w-5/6">
+			<div className="flex justify-center items-center">
+				<label
+					htmlFor="searchCharacter"
+					className="flex justify-center  h-12 items-center font-bold text-white"
+				>
+					Characters
+				</label>
+				<input
+					type="text"
+					placeholder="search"
+					id="searchCharacter"
+					name="searchCharacter"
+					value={searchCharacter}
+					onChange={handlesearchCharacter}
+					className="bg-red-100 rounded h-7 mx-2"
+				/>
+			</div>
 
-				<div className="flex flex-wrap justify-center w-full  ">
-					{data.map((character: characterType, index: number) => {
-						return (
-							<div
-								key={character._id}
-								className="relative xl:w-1/4 lg:w-1/3 md:w-1/2 "
+			<div className="flex flex-wrap justify-center w-full  ">
+				{data.map((character: characterType, index: number) => {
+					return (
+						<div
+							key={character._id}
+							className="relative xl:w-1/4 lg:w-1/3 md:w-1/2 "
+						>
+							<Link
+								className="shadow-white shadow-xl relative  m-2  border-2 border-white border-solid  rounded  flex flex-col  h-96  "
+								to={`/character/${character._id}`}
+								state={{ from: '/characters', character: character.name }}
 							>
-								<Link
-									className="shadow-white shadow-xl relative  m-2  border-2 border-white border-solid  rounded  flex flex-col  h-96  "
-									to={`/character/${character._id}`}
-									state={{ from: '/characters', character: character.name }}
-								>
-									<img
-										className="h-full object-cover"
-										src={`${character.thumbnail.path}/portrait_uncanny.${character.thumbnail.extension}`}
-										alt={`image de ${character.name}`}
-									/>
+								<img
+									className="h-full object-cover"
+									src={`${character.thumbnail.path}/portrait_uncanny.${character.thumbnail.extension}`}
+									alt={`image de ${character.name}`}
+								/>
 
-									<div className="absolute font-bold w-full  ">
-										<div
-											className={
-												descriptionToggle[index]
-													? 'hidden'
-													: 'flex justify-center bg-red-300 bg-opacity-60 rounded font-extrabold my-2 mx-4'
-											}
-										>
-											{character.name}
-										</div>
-									</div>
-
+								<div className="absolute font-bold w-full  ">
 									<div
 										className={
 											descriptionToggle[index]
-												? 'absolute  font-bold  w-full bg-red-300 bg-opacity-60 flex rounded  flex-col '
-												: 'hidden'
+												? 'hidden'
+												: 'flex justify-center bg-red-300 bg-opacity-60 rounded font-extrabold my-2 mx-4'
 										}
 									>
-										<div className="flex  justify-center font-extrabold my-2 ">
-											{character.name}
-										</div>
-										<div>{character.description}</div>
+										{character.name}
 									</div>
-								</Link>
+								</div>
 
-								<button
+								<div
 									className={
-										character.description
-											? 'absolute left-1/2 transform -translate-x-1/2  z-10 bg-slate-100 bg-opacity-70  rounded bottom-4 border-2 border-red-400 font-bold '
+										descriptionToggle[index]
+											? 'absolute  font-bold  w-full bg-red-300 bg-opacity-60 flex rounded  flex-col '
 											: 'hidden'
 									}
-									onClick={() => handleDescription(index)}
 								>
-									DESCRIPTION
-								</button>
-							</div>
-						)
-					})}
-				</div>
+									<div className="flex  justify-center font-extrabold my-2 ">
+										{character.name}
+									</div>
+									<div>{character.description}</div>
+								</div>
+							</Link>
 
-				<div className="text-white flex justify-center h-20 ">
-					{pagination()}
-				</div>
-			</section>
-	
+							<button
+								className={
+									character.description
+										? 'absolute left-1/2 transform -translate-x-1/2  z-10 bg-slate-100 bg-opacity-70  rounded bottom-4 border-2 border-red-400 font-bold '
+										: 'hidden'
+								}
+								onClick={() => handleDescription(index)}
+							>
+								DESCRIPTION
+							</button>
+							<button  onClick={()=> handleFavorite(index)} className='absolute z-20 top-3 right-6 text-3xl'>
+								
+								{favoritToggle[index] ? <div>❤️‍🔥</div> : <div>❤️</div>}
+								</button>
+						</div>
+					)
+				})}
+			</div>
+
+			<div className="text-white flex justify-center h-20 ">{pagination()}</div>
+		</section>
 	)
 }
 

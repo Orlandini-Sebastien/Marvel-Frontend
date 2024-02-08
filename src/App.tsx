@@ -8,6 +8,7 @@ import Characters from './pages/Characters'
 import SignIn from './pages/SignIn'
 import SignUp from './pages/SignUp'
 import Character from './pages/Character'
+import Favoris from './pages/Favoris'
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
 				<Route path="/character/:id" element={<Character />} />
 				<Route path="/signin" element={<SignIn />} />
 				<Route path="/signup" element={<SignUp />} />
+				<Route path="/favoris" element={<Favoris />} />
 			</Routes>
 		</Router>
 	)

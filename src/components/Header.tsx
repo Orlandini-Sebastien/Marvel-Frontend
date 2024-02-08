@@ -14,6 +14,7 @@ const Header = () => {
 				<div className="flex justify-around w-full h-full items-center">
 					<Link to={'/comics'}> Comics</Link>
 					<Link to={'/'}> Characters</Link>
+					<Link to={'/favoris'}>Favoris</Link>
 				</div>
 				<div className="flex justify-around w-full h-full items-center">
 					<Link to={'/signin'}> Sign In</Link>
