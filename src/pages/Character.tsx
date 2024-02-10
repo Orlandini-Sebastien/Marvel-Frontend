@@ -46,16 +46,19 @@ const Character = () => {
 			Loding ...
 		</div>
 	) : (
-		
 		<section className="m-auto w-5/6">
 			<h1 className="flex justify-center  h-12 items-center font-bold text-white">
 				Les aventures de {location.state.character}
 			</h1>
 			<div className="flex flex-wrap justify-center w-full ">
-				{data.map((comic : comicType) => {
+				{data.map((comic: comicType) => {
 					return (
 						<div
-							className={(comic.thumbnail.path && comic.thumbnail.extension) ? "shadow-white shadow-xl relative min-w-52  m-2 border-2 border-solid border-white rounded flex flex-col w-[18%] h-96" : "hidden"}   
+							className={
+								comic.thumbnail.path && comic.thumbnail.extension
+									? 'shadow-white shadow-xl relative min-w-52  m-2 border-2 border-solid border-white rounded flex flex-col w-[18%] h-96'
+									: 'hidden'
+							}
 							key={comic._id}
 						>
 							<img
@@ -67,9 +70,7 @@ const Character = () => {
 					)
 				})}
 			</div>
-		</section>	
-
-		
+		</section>
 	)
 }
 
