@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import Cookies from 'js-cookie'
+import oeil from '../assets/peil2.png'
 
 type characterType = {
 	_id: string
@@ -156,94 +157,99 @@ const Characters = ({ data, setData }: typeCharacters) => {
 	}, [page, searchCharacter, setData])
 
 	return isLoading ? (
-		<div className="flex w-screen justify-center items-center">Loading ...</div>
+		<div className="flex w-screen justify-center items-center">Loading</div>
 	) : (
-		<section className="m-auto w-5/6">
-			<div className="flex justify-center items-center">
-				<label
-					htmlFor="searchCharacter"
-					className="flex justify-center  h-12 items-center font-bold text-white"
-				>
-					Characters
-				</label>
-				<input
-					type="text"
-					placeholder="search"
-					id="searchCharacter"
-					name="searchCharacter"
-					value={searchCharacter}
-					onChange={handlesearchCharacter}
-					className="bg-red-100 rounded h-7 mx-2"
-				/>
-			</div>
+		<div>
+			<img className="w-full h-[80%] fixed max-md:top-40 md:top-36 object-cover " src={oeil} alt="oeil" />
+			<section className="relative m-auto w-5/6">
+				<div className="flex justify-center items-center">
+					<label
+						htmlFor="searchCharacter"
+						className="flex justify-center  h-12 items-center font-bold text-white"
+					>
+						Characters
+					</label>
+					<input
+						type="text"
+						placeholder="search"
+						id="searchCharacter"
+						name="searchCharacter"
+						value={searchCharacter}
+						onChange={handlesearchCharacter}
+						className="bg-red-100 rounded h-7 mx-2"
+					/>
+				</div>
 
-			<div className="flex flex-wrap justify-center w-full  ">
-				{data.map((character: characterType, index: number) => {
-					return (
-						<div
-							key={character._id}
-							className="relative xl:w-1/4 lg:w-1/3 md:w-1/2  "
-						>
-							<Link
-								className="shadow-white shadow-xl relative  m-2  border-2 border-white border-solid  rounded  flex flex-col  h-96 cursor-alias  overflow-auto"
-								to={`/character/${character._id}`}
-								state={{ from: '/characters', character: character.name }}
+				<div className="flex flex-wrap justify-center w-full  ">
+					{data.map((character: characterType, index: number) => {
+						return (
+							<div
+								key={character._id}
+								className="relative xl:w-1/4 lg:w-1/3 md:w-1/2  "
 							>
-								<img
-									className="h-full object-cover"
-									src={`${character.thumbnail.path}/portrait_uncanny.${character.thumbnail.extension}`}
-									alt={character.name}
-								/>
+								<Link
+									className="shadow-white shadow-xl relative  m-2  border-2 border-white border-solid  rounded  flex flex-col  h-96 cursor-alias  overflow-auto"
+									to={`/character/${character._id}`}
+									state={{ from: '/characters', character: character.name }}
+								>
+									<img
+										className="h-full object-cover"
+										src={`${character.thumbnail.path}/portrait_uncanny.${character.thumbnail.extension}`}
+										alt={character.name}
+									/>
 
-								<div className="absolute font-bold w-full  ">
+									<div className="absolute font-bold w-full  ">
+										<div
+											className={
+												descriptionToggle[index]
+													? 'hidden'
+													: 'flex justify-center mx-8 text-center  bg-red-300 bg-opacity-60 rounded font-extrabold my-2 '
+											}
+										>
+											{character.name}
+										</div>
+									</div>
+
 									<div
 										className={
 											descriptionToggle[index]
-												? 'hidden'
-												: 'flex justify-center mx-8 text-center  bg-red-300 bg-opacity-60 rounded font-extrabold my-2 '
+												? 'absolute  font-bold  w-full bg-red-300 bg-opacity-60 flex rounded  flex-col '
+												: 'hidden'
 										}
 									>
-										{character.name}
+										<div className="flex mx-8 text-center  justify-center font-extrabold my-2 ">
+											{character.name}
+										</div>
+										<div>{character.description}</div>
 									</div>
-								</div>
+								</Link>
 
-								<div
+								<button
 									className={
-										descriptionToggle[index]
-											? 'absolute  font-bold  w-full bg-red-300 bg-opacity-60 flex rounded  flex-col '
+										character.description
+											? 'absolute left-1/2 transform -translate-x-1/2  z-10 bg-slate-100 bg-opacity-70  rounded bottom-4 border-2 border-red-400 font-bold '
 											: 'hidden'
 									}
+									onClick={() => handleDescription(index)}
 								>
-									<div className="flex mx-8 text-center  justify-center font-extrabold my-2 ">
-										{character.name}
-									</div>
-									<div>{character.description}</div>
-								</div>
-							</Link>
+									DESCRIPTION
+								</button>
+								<button
+									onClick={() => handleFavorite(character)}
+									className="absolute z-20 top-3 right-3 text-3xl"
+								>
+									{Toggleheart(character) ? <div>❤️‍🔥</div> : <div>❤️</div>}
+								</button>
+							</div>
+						)
+					})}
+				</div>
 
-							<button
-								className={
-									character.description
-										? 'absolute left-1/2 transform -translate-x-1/2  z-10 bg-slate-100 bg-opacity-70  rounded bottom-4 border-2 border-red-400 font-bold '
-										: 'hidden'
-								}
-								onClick={() => handleDescription(index)}
-							>
-								DESCRIPTION
-							</button>
-							<button
-								onClick={() => handleFavorite(character)}
-								className="absolute z-20 top-3 right-3 text-3xl"
-							>
-								{Toggleheart(character) ? <div>❤️‍🔥</div> : <div>❤️</div>}
-							</button>
-						</div>
-					)
-				})}
-			</div>
-
-			<div className="text-white flex justify-center h-20 ">{pagination()}</div>
-		</section>
+				<div className="text-white flex justify-center h-20 ">
+					{pagination()}
+				</div>
+			</section>
+		</div>
 	)
 }
 

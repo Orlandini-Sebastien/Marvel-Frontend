@@ -3,6 +3,8 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 
+
+
 type comicType = {
 	_id: string
 	title: string
@@ -37,6 +39,7 @@ const Character = () => {
 			setIsLoading(false)
 		}
 		fetchData()
+
 	}, [])
 
 	{

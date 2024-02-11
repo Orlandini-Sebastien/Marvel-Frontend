@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import axios from 'axios'
-
+import fontComic from '../assets/font-comics.png'
 import Cookies from 'js-cookie'
 type comicType = {
 	_id: string
@@ -145,7 +145,8 @@ const Comics = () => {
 	return isLoading ? (
 		<div className="flex w-screen justify-center items-center">Loading ...</div>
 	) : (
-		<section className="m-auto w-5/6">
+		<div>
+					<img className="w-full h-[80%] fixed max-md:top-40 md:top-36 object-cover " src={fontComic} alt="oeil" /><section className="m-auto w-5/6">
 			<div className="flex justify-center items-center">
 				<label
 					htmlFor="searchComic"
@@ -224,6 +225,8 @@ const Comics = () => {
 
 			<div className="text-white flex justify-center h-20 ">{pagination()}</div>
 		</section>
+		</div>
+		
 	)
 }
 
