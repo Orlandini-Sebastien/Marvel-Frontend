@@ -19,7 +19,7 @@ const Character = () => {
 	console.log('location >>>>', location)
 	console.log(id)
 	const [isLoading, setIsLoading] = useState(true)
-	const [data, setData] = useState([])
+	const [data, setData] = useState<any[]>([])
 
 	
 
