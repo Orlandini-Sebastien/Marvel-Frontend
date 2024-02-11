@@ -160,7 +160,7 @@ const Characters = ({ data, setData }: typeCharacters) => {
 		<div className="flex w-screen justify-center items-center">Loading</div>
 	) : (
 		<div>
-			<img className="w-full  fixed h-1/2   object-cover top-1/2 transform -translate-y-1/2 " src={oeil} alt="oeil" />
+			<img className="w-full max-md:h-full  fixed h-1/2   object-cover top-1/2 transform -translate-y-1/2 " src={oeil} alt="oeil" />
 			<section className="relative m-auto w-5/6">
 				<div className="flex justify-center items-center">
 					<label
