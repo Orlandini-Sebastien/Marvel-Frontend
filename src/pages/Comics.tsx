@@ -146,7 +146,7 @@ const Comics = () => {
 		<div className="flex w-screen justify-center items-center">Loading ...</div>
 	) : (
 		<div>
-					<img className="w-full h-[80%] fixed max-md:top-40 md:top-36 object-cover " src={fontComic} alt="oeil" /><section className="m-auto w-5/6">
+					<img className="w-full  fixed  object-cover top-1/2 transform -translate-y-1/2  " src={fontComic} alt="oeil" /><section className="m-auto w-5/6">
 			<div className="flex justify-center items-center">
 				<label
 					htmlFor="searchComic"

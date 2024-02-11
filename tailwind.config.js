@@ -9,13 +9,4 @@ export default {
         },
         cursor: {
         
-          'fancy': 'url(./src/assets/Captain_America_Shield.svg.png), pointer',
-        },
-        
-    },
-  },
-  plugins: [
-
-  ],
-}
-
+      

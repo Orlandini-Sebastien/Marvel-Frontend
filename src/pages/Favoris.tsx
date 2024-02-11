@@ -172,15 +172,4 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 								<img
 									className="h-full object-cover"
 									src={`${favorisComic.thumbnail.path}.${favorisComic.thumbnail.extension}`}
-									alt={`image de ${favorisComic.title}`}
-								/>
-							</div>
-						)
-					})}
-				</div>
-			</section>
-		</section>
-	)
-}
-
-export default Favoris
+									alt={`image de ${favorisComic.ti
