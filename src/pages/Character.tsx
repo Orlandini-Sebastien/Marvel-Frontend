@@ -79,4 +79,4 @@ const Character = () => {
 	)
 }
 
-expor
+export default Character
