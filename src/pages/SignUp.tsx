@@ -85,7 +85,7 @@ export default function SignUp({
 
 				try {
 					const { data } = await axios.post(
-						'site--backend-marvel--cfvhczrj5zks.code.run/userMarvel/signup',
+						'https://site--backend-marvel--cfvhczrj5zks.code.run/userMarvel/signup',
 						formData
 					)
 					console.log('response', data)

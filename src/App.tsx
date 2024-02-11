@@ -15,6 +15,7 @@ function App() {
 	const [displayLogin, setDisplayLogin] = useState(false)
 	const [displaySignUp, setDisplaySignUp] = useState(false)
 	const [token, setToken] = useState(Cookies.get('userToken') || '')
+	const [data, setData] = useState([]);
 	return (
 		<Router>
 			<Header
@@ -26,7 +27,7 @@ function App() {
 			<Routes>
 			
 				<Route path="/comics" element={<Comics />} />
-				<Route path="/" element={<Characters 	 />} />
+				<Route path="/" element={<Characters data={data} setData={setData}	 />} />
 				<Route path="/character/:id" element={<Character />} />
 				<Route path="/favoris" element={<Favoris token={token} setDisplayLogin={setDisplayLogin} />} />
 			</Routes>

@@ -105,7 +105,7 @@ const Comics = () => {
 		const fetchData = async () => {
 			try {
 				const response = await axios.get(
-					`site--backend-marvel--cfvhczrj5zks.code.run/comics?page=${page}&comic=${searchComic}`
+					`https://site--backend-marvel--cfvhczrj5zks.code.run/comics?page=${page}&comic=${searchComic}`
 				)
 
 				setData(response.data)
@@ -122,7 +122,7 @@ const Comics = () => {
 				let initial: number = 1
 				while (initial > 0) {
 					const ask = await axios.get(
-						`site--backend-marvel--cfvhczrj5zks.code.run/comics?page=${firstPage}&comic=${searchComic}`
+						`https://site--backend-marvel--cfvhczrj5zks.code.run/comics?page=${firstPage}&comic=${searchComic}`
 					)
 					initial = ask.data.length
 

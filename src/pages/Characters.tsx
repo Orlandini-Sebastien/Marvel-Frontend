@@ -13,21 +13,32 @@ type characterType = {
 	description: string
 }
 
-const Characters = () => {
+type typeCharacters = {
+	setData: React.Dispatch<React.SetStateAction<never[]>>
+	data: {
+		_id: string
+		name: string
+		thumbnail: {
+			path: string
+			extension: string
+		}
+		description: string
+	}[]
+}
+
+const Characters = ({ data, setData }: typeCharacters) => {
 	const descriptionToggleInitial: boolean[] = new Array(100).fill(false)
 	const [isLoading, setIsLoading] = useState(true)
-	const [data, setData] = useState<Array<characterType>>([])
+
 	const [page, setPage] = useState(0)
-	const [descriptionToggle, setDescriptionToggle] = useState(
-		descriptionToggleInitial
-		)
-		const [searchCharacter, setSearchCharacter] = useState('')
-		
-		const [favoritCharacterCookie, setFavoritCharacterCookie] = useState<
-		string[]
-		>([])
-		const [nbPage, setNbpage] = useState(0)
-		
+	const [descriptionToggle, setDescriptionToggle] = useState(descriptionToggleInitial)
+	const [searchCharacter, setSearchCharacter] = useState('')
+	
+	const [favoritCharacterCookie, setFavoritCharacterCookie] = useState<string[]>([])
+	
+	const [nbPage, setNbpage] = useState(0)
+	
+
 	const handlesearchCharacter = (
 		event: React.ChangeEvent<HTMLInputElement>
 	): void => {
@@ -63,8 +74,7 @@ const Characters = () => {
 		else newValue[index] = false
 		setDescriptionToggle(newValue)
 	}
-	const handleFavorite = ( character: characterType) => {
-		
+	const handleFavorite = (character: characterType) => {
 		//Envoyer les préférences dans un cookie
 		console.log(character._id)
 
@@ -104,13 +114,12 @@ const Characters = () => {
 		}
 	}
 
-
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				// Pour afficher la page
 				const response = await axios.get(
-					`site--backend-marvel--cfvhczrj5zks.code.run/characters?page=${page}&character=${searchCharacter}`
+					`https://site--backend-marvel--cfvhczrj5zks.code.run/characters?page=${page}&character=${searchCharacter}`
 				)
 				setData(response.data)
 			} catch (error) {
@@ -127,7 +136,7 @@ const Characters = () => {
 				let initial: number = 1
 				while (initial > 0) {
 					const ask = await axios.get(
-						`site--backend-marvel--cfvhczrj5zks.code.run/characters?page=${firstPage}&character=${searchCharacter}`
+						`https://site--backend-marvel--cfvhczrj5zks.code.run/characters?page=${firstPage}&character=${searchCharacter}`
 					)
 					initial = ask.data.length
 
@@ -141,12 +150,10 @@ const Characters = () => {
 			}
 		}
 		fetchPage()
-	}, [page, searchCharacter])
+	}, [page, searchCharacter,setData])
 
 	return isLoading ? (
-		<div className="flex w-screen justify-center items-center">
-			Loding ...
-		</div>
+		<div className="flex w-screen justify-center items-center">Loding ...</div>
 	) : (
 		<section className="m-auto w-5/6">
 			<div className="flex justify-center items-center">
@@ -168,7 +175,8 @@ const Characters = () => {
 			</div>
 
 			<div className="flex flex-wrap justify-center w-full  ">
-				{data.map((character: characterType, index: number) => {
+				{ 
+				data.map((character:characterType, index: number) => {
 					return (
 						<div
 							key={character._id}
@@ -225,7 +233,7 @@ const Characters = () => {
 								onClick={() => handleFavorite(character)}
 								className="absolute z-20 top-3 right-6 text-3xl"
 							>
-								{ Toggleheart(character) ? <div>❤️‍🔥</div> : <div>❤️</div>}
+								{Toggleheart(character) ? <div>❤️‍🔥</div> : <div>❤️</div>}
 							</button>
 						</div>
 					)

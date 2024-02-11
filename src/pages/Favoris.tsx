@@ -50,14 +50,14 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 					const cookie = JSON.parse(depart)
 					console.log('cookie>>>', cookie)
 
-					let data: never[] = []
+					const data: never[] = []
 					for (let i = 0; i < cookie.length; i++) {
 						const response: AxiosResponse<never> = await axios.request({
 							headers: {
 								Authorization: `Bearer ${token}`,
 							},
 							method: 'GET',
-							url: `site--backend-marvel--cfvhczrj5zks.code.run/character/${cookie[i]}`,
+							url: `https://site--backend-marvel--cfvhczrj5zks.code.run/character/${cookie[i]}`,
 						})
 
 						data.push(response.data)
@@ -84,14 +84,14 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 					const cookie = JSON.parse(depart)
 					console.log('cookie>>>', cookie)
 
-					let data2: never[] = []
+					const data2: never[] = []
 					for (let i = 0; i < cookie.length; i++) {
 						const response: AxiosResponse<never> = await axios.request({
 							headers: {
 								Authorization: `Bearer ${token}`,
 							},
 							method: 'GET',
-							url: `site--backend-marvel--cfvhczrj5zks.code.run/comic/${cookie[i]}`,
+							url: `https://site--backend-marvel--cfvhczrj5zks.code.run/comic/${cookie[i]}`,
 						})
 
 						data2.push(response.data)
@@ -115,7 +115,7 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 			setIsLoading(false)
 		}
 		fetchData()
-	}, [])
+	})
 
 	{
 		console.log('Dans favorisCaracter >>>>>', data)
