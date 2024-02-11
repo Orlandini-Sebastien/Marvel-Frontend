@@ -16,7 +16,7 @@ type characterType = {
 const Characters = () => {
 	const descriptionToggleInitial: boolean[] = new Array(100).fill(false)
 	const [isLoading, setIsLoading] = useState(true)
-	const [data, setData] = useState<any[]>([])
+	const [data, setData] = useState<Array<characterType>>([])
 	const [page, setPage] = useState(0)
 	const [descriptionToggle, setDescriptionToggle] = useState(
 		descriptionToggleInitial

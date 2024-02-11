@@ -36,8 +36,8 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 	console.log('location >>>>', location)
 	console.log(id)
 	const [isLoading, setIsLoading] = useState(true)
-	const [data, setData] = useState<any[]>([])
-	const [data2, setData2] = useState<any[]>([])
+	const [data, setData] = useState<Array<favorisCharacterType>>([])
+	const [data2, setData2] = useState<Array<favoriComicType>>([])
 	const navigate = useNavigate()
 
 	useEffect(() => {

@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 
+
 type comicType = {
 	_id: string
 	title: string
@@ -19,7 +20,7 @@ const Character = () => {
 	console.log('location >>>>', location)
 	console.log(id)
 	const [isLoading, setIsLoading] = useState(true)
-	const [data, setData] = useState<any[]>([])
+	const [data, setData] = useState <Array<comicType>> ([])
 
 	
 

@@ -15,7 +15,7 @@ type comicType = {
 const Comics = () => {
 	const descriptionToggleInitial: boolean[] = new Array(100).fill(false)
 	const [isLoading, setIsLoading] = useState(true)
-	const [data, setData] = useState<any[]>([])
+	const [data, setData] = useState<comicType[]>([])
 	const [page, setPage] = useState(0)
 	const [descriptionToggle, setDescriptionToggle] = useState(
 		descriptionToggleInitial
