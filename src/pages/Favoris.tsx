@@ -115,7 +115,7 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 			setIsLoading(false)
 		}
 		fetchData()
-	})
+	},[])
 
 	{
 		console.log('Dans favorisCaracter >>>>>', data)
@@ -123,64 +123,63 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 
 	return isLoading ? (
 		<div className="flex h-[85vh] w-screen justify-center items-center">
-			Loding ...
+			Loading ...
 		</div>
 	) : (
 		<section>
-		<section className="m-auto w-5/6">
-			<h1 className="flex justify-center  h-12 items-center font-bold text-white">
-				favoris Caracter
-			</h1>
-			<div className="flex flex-wrap justify-center w-full ">
-				{data.map((favorisCaracter: favorisCharacterType) => {
-					return (
-						<div
-							className={
-								favorisCaracter.thumbnail.path && favorisCaracter.thumbnail.extension
-									? 'shadow-white shadow-xl relative min-w-52  m-2 border-2 border-solid border-white rounded flex flex-col w-[18%] h-96'
-									: 'hidden'
-							}
-							key={favorisCaracter._id}
-						>
-							<img
-								className="h-full object-cover"
-								src={`${favorisCaracter.thumbnail.path}.${favorisCaracter.thumbnail.extension}`}
-								alt={`image de ${favorisCaracter.name}`}
-							/>
-						</div>
-					)
-				})}
-				
-			</div>
-		</section>	
-		<section className="m-auto w-5/6">
-			<h1 className="flex justify-center  h-12 items-center font-bold text-white">
-				favoris Comic
-			</h1>
-			<div className="flex flex-wrap justify-center w-full ">
-				{data2.map((favorisComic: favoriComicType) => {
-					return (
-						<div
-							className={
-								favorisComic.thumbnail.path && favorisComic.thumbnail.extension
-									? 'shadow-white shadow-xl relative min-w-52  m-2 border-2 border-solid border-white rounded flex flex-col w-[18%] h-96'
-									: 'hidden'
-							}
-							key={favorisComic._id}
-						>
-							<img
-								className="h-full object-cover"
-								src={`${favorisComic.thumbnail.path}.${favorisComic.thumbnail.extension}`}
-								alt={`image de ${favorisComic.title}`}
-							/>
-						</div>
-					)
-				})}
-				
-			</div>
+			<section className="m-auto w-5/6">
+				<h1 className="flex justify-center  h-12 items-center font-bold text-white">
+					favoris Caracter
+				</h1>
+				<div className="flex flex-wrap justify-center w-full ">
+					{data.map((favorisCaracter: favorisCharacterType) => {
+						return (
+							<div
+								className={
+									favorisCaracter.thumbnail.path &&
+									favorisCaracter.thumbnail.extension
+										? 'shadow-white cursor-alias  shadow-xl relative min-w-52  m-2 border-2 border-solid border-white rounded flex flex-col w-[18%] h-96 overflow-auto'
+										: 'hidden'
+								}
+								key={favorisCaracter._id}
+							>
+								<img
+									className="h-full object-cover"
+									src={`${favorisCaracter.thumbnail.path}.${favorisCaracter.thumbnail.extension}`}
+									alt={`image de ${favorisCaracter.name}`}
+								/>
+							</div>
+						)
+					})}
+				</div>
+			</section>
+			<section className="m-auto w-5/6">
+				<h1 className="flex justify-center  h-12 items-center font-bold text-white">
+					favoris Comic
+				</h1>
+				<div className="flex flex-wrap justify-center w-full ">
+					{data2.map((favorisComic: favoriComicType) => {
+						return (
+							<div
+								className={
+									favorisComic.thumbnail.path &&
+									favorisComic.thumbnail.extension
+										? 'shadow-white shadow-xl relative min-w-52  m-2 border-2 border-solid border-white rounded flex flex-col w-[18%] h-96 overflow-auto'
+										: 'hidden'
+								}
+								key={favorisComic._id}
+							>
+								<img
+									className="h-full object-cover"
+									src={`${favorisComic.thumbnail.path}.${favorisComic.thumbnail.extension}`}
+									alt={`image de ${favorisComic.title}`}
+								/>
+							</div>
+						)
+					})}
+				</div>
+			</section>
 		</section>
-		</section>
-		
 	)
 }
 

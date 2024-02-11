@@ -3,7 +3,6 @@ import axios from 'axios'
 import { useParams } from 'react-router-dom'
 import { useLocation } from 'react-router-dom'
 
-
 type comicType = {
 	_id: string
 	title: string
@@ -20,16 +19,16 @@ const Character = () => {
 	console.log('location >>>>', location)
 	console.log(id)
 	const [isLoading, setIsLoading] = useState(true)
-	const [data, setData] = useState <Array<comicType>> ([])
-
-	
+	const [data, setData] = useState<Array<comicType>>([])
 
 	useEffect(() => {
 		console.log('dedans')
 
 		const fetchData = async () => {
 			try {
-				const response = await axios.get(`https://site--backend-marvel--cfvhczrj5zks.code.run/comic/${id}`)
+				const response = await axios.get(
+					`https://site--backend-marvel--cfvhczrj5zks.code.run/comic/${id}`
+				)
 				console.log('response', response)
 				setData(response.data.comics)
 			} catch (error) {
@@ -38,7 +37,7 @@ const Character = () => {
 			setIsLoading(false)
 		}
 		fetchData()
-	},[])
+	}, [])
 
 	{
 		console.log('Dans character >>>>>', data)
@@ -46,7 +45,7 @@ const Character = () => {
 
 	return isLoading ? (
 		<div className="flex h-[85vh] w-screen justify-center items-center">
-			Loding ...
+			Loading ...
 		</div>
 	) : (
 		<section className="m-auto w-5/6">

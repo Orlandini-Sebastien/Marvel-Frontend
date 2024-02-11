@@ -107,7 +107,7 @@ const Comics = () => {
 				const response = await axios.get(
 					`https://site--backend-marvel--cfvhczrj5zks.code.run/comics?page=${page}&comic=${searchComic}`
 				)
-
+					console.log(response)
 				setData(response.data)
 			} catch (error) {
 				console.log('catch app>>>', error)
@@ -167,7 +167,7 @@ const Comics = () => {
 				{data.map((comic: comicType, index: number) => {
 					return (
 						<div
-							className="relative xl:w-1/4 lg:w-1/3 md:w-1/2 "
+							className="relative xl:w-1/4 lg:w-1/3 md:w-1/2 cursor-alias  "
 							key={comic._id}
 						>
 							<div className="shadow-white shadow-xl relative  m-2  border-2 border-white border-solid  rounded  flex flex-col  h-96  ">
@@ -181,7 +181,7 @@ const Comics = () => {
 										className={
 											descriptionToggle[index]
 												? 'hidden'
-												: 'flex justify-center bg-red-300 bg-opacity-60 rounded font-extrabold my-2 mx-4'
+												: 'text-center  bg-red-300 bg-opacity-60 rounded font-extrabold my-2 mx-8'
 										}
 									>
 										{comic.title}
@@ -190,11 +190,11 @@ const Comics = () => {
 								<div
 									className={
 										descriptionToggle[index]
-											? 'absolute  font-bold px-4 w-full bg-red-300 bg-opacity-60 flex rounded  flex-col '
+											? 'absolute  font-bold px-4 w-full bg-red-300 bg-opacity-60 flex rounded  flex-col h-[90%] overflow-auto  '
 											: 'hidden'
 									}
 								>
-									<div className="flex  justify-center font-extrabold my-2  ">
+									<div className="flex mx-8 text-center font-extrabold my-2  ">
 										{comic.title}
 									</div>
 									<div>{comic.description}</div>
@@ -213,7 +213,7 @@ const Comics = () => {
 							</button>
 							<button
 								onClick={() => handleFavorite(comic)}
-								className="absolute z-20 top-3 right-6 text-3xl"
+								className="absolute z-20 top-3 right-3 text-3xl"
 							>
 								{Toggleheart(comic) ? <div>❤️‍🔥</div> : <div>❤️</div>}
 							</button>

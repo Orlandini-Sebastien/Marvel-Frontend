@@ -98,7 +98,7 @@ export default function SignUp({
 	return (
 		<>
 			<section className="flex flex-col w-11/12 h-full py-4 ">
-				<div className="w-full flex justify-end  h-0">
+				<div className="w-full flex justify-end ">
 					<button onClick={() => setDisplaySignUp(false)} className="mx-4  ">
 						✖️
 					</button>

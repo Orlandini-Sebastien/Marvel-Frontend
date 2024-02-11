@@ -31,13 +31,16 @@ const Characters = ({ data, setData }: typeCharacters) => {
 	const [isLoading, setIsLoading] = useState(true)
 
 	const [page, setPage] = useState(0)
-	const [descriptionToggle, setDescriptionToggle] = useState(descriptionToggleInitial)
+	const [descriptionToggle, setDescriptionToggle] = useState(
+		descriptionToggleInitial
+	)
 	const [searchCharacter, setSearchCharacter] = useState('')
-	
-	const [favoritCharacterCookie, setFavoritCharacterCookie] = useState<string[]>([])
-	
+
+	const [favoritCharacterCookie, setFavoritCharacterCookie] = useState<
+		string[]
+	>([])
+
 	const [nbPage, setNbpage] = useState(0)
-	
 
 	const handlesearchCharacter = (
 		event: React.ChangeEvent<HTMLInputElement>
@@ -150,10 +153,10 @@ const Characters = ({ data, setData }: typeCharacters) => {
 			}
 		}
 		fetchPage()
-	}, [page, searchCharacter,setData])
+	}, [page, searchCharacter, setData])
 
 	return isLoading ? (
-		<div className="flex w-screen justify-center items-center">Loding ...</div>
+		<div className="flex w-screen justify-center items-center">Loading ...</div>
 	) : (
 		<section className="m-auto w-5/6">
 			<div className="flex justify-center items-center">
@@ -175,15 +178,14 @@ const Characters = ({ data, setData }: typeCharacters) => {
 			</div>
 
 			<div className="flex flex-wrap justify-center w-full  ">
-				{ 
-				data.map((character:characterType, index: number) => {
+				{data.map((character: characterType, index: number) => {
 					return (
 						<div
 							key={character._id}
-							className="relative xl:w-1/4 lg:w-1/3 md:w-1/2 "
+							className="relative xl:w-1/4 lg:w-1/3 md:w-1/2  "
 						>
 							<Link
-								className="shadow-white shadow-xl relative  m-2  border-2 border-white border-solid  rounded  flex flex-col  h-96  "
+								className="shadow-white shadow-xl relative  m-2  border-2 border-white border-solid  rounded  flex flex-col  h-96 cursor-alias  overflow-auto"
 								to={`/character/${character._id}`}
 								state={{ from: '/characters', character: character.name }}
 							>
@@ -198,7 +200,7 @@ const Characters = ({ data, setData }: typeCharacters) => {
 										className={
 											descriptionToggle[index]
 												? 'hidden'
-												: 'flex justify-center bg-red-300 bg-opacity-60 rounded font-extrabold my-2 mx-4'
+												: 'flex justify-center mx-8 text-center  bg-red-300 bg-opacity-60 rounded font-extrabold my-2 '
 										}
 									>
 										{character.name}
@@ -212,7 +214,7 @@ const Characters = ({ data, setData }: typeCharacters) => {
 											: 'hidden'
 									}
 								>
-									<div className="flex  justify-center font-extrabold my-2 ">
+									<div className="flex mx-8 text-center  justify-center font-extrabold my-2 ">
 										{character.name}
 									</div>
 									<div>{character.description}</div>
@@ -231,7 +233,7 @@ const Characters = ({ data, setData }: typeCharacters) => {
 							</button>
 							<button
 								onClick={() => handleFavorite(character)}
-								className="absolute z-20 top-3 right-6 text-3xl"
+								className="absolute z-20 top-3 right-3 text-3xl"
 							>
 								{Toggleheart(character) ? <div>❤️‍🔥</div> : <div>❤️</div>}
 							</button>

@@ -88,7 +88,7 @@ const SignIn = ({
 	console.log('connection>>>', connection)
 	return (
 		<div className="flex flex-col w-11/12 h-full py-4">
-			<div className="w-full flex justify-end  h-0">
+			<div className="w-full flex justify-end  ">
 				<button onClick={() => setDisplayLogin(false)} className="mx-4">
 					✖️
 				</button>
