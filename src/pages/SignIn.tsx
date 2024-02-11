@@ -87,17 +87,17 @@ const SignIn = ({
 	}
 	console.log('connection>>>', connection)
 	return (
-		<div className="">
-			<div className="w-full flex h-[0%] justify-end">
+		<div className="flex flex-col w-11/12 h-full py-4">
+			<div className="w-full flex justify-end  h-0">
 				<button onClick={() => setDisplayLogin(false)} className="mx-4">
 					✖️
 				</button>
 			</div>
 
-			<div className="text-lg text-gray-600 h-1/6 "> Se connecter</div>
+			<div className="text-lg text-gray-600  flex justify-center "> Log in</div>
 
-			<form className="" onSubmit={handleSubmit}>
-				<div className="h-1/2 flex flex-col justify-center">
+			<form className="h-full flex flex-col justify-around " onSubmit={handleSubmit}>
+			
 					<input
 						type="email"
 						placeholder="Adresse email"
@@ -119,9 +119,9 @@ const SignIn = ({
 							shake ? 'shake' : ''
 						}  bg-white  border-b-2 border-red-200  rounded w-full leading-8 my-4 `}
 					/>
-				</div>
+				
 
-				<div className="h-1/4 flex flex-col ">
+		
 					<p className="text-red-500 my-2 sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">
 						{alert}
 					</p>
@@ -136,9 +136,9 @@ const SignIn = ({
 							setDisplaySignUp(true)
 						}}
 					>
-						Pas encore de compte ? Inscris-toi !
+						Don't have an account yet? Sign up
 					</button>
-				</div>
+			
 			</form>
 		</div>
 	)

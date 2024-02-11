@@ -16,13 +16,12 @@ type SignUpProps = {
 
 export default function SignUp({
 	setDisplayLogin,
-	setDisplaySignUp, setToken
+	setDisplaySignUp,
+	setToken,
 }: SignUpProps): ReactElement {
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
-	const [newsletter, setNewsletter] = useState(false)
-	const [avatar, setAvatar] = useState<File | null>(null)
 	const [alert, setAlert] = useState('')
 	const [shake, setShake] = useState(false)
 
@@ -47,12 +46,6 @@ export default function SignUp({
 		setPassword(value)
 	}
 
-	const handleAvatarChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-		if (event.target.files) {
-			setAvatar(event.target.files[0])
-		}
-	}
-
 	const handleSubmit = async (event: React.MouseEvent<HTMLFormElement>) => {
 		event.preventDefault()
 		if (name === '') {
@@ -69,19 +62,10 @@ export default function SignUp({
 			setAlert('')
 
 			if (name && email && password) {
-				let newslettertoString: string = ''
-				if (newsletter) {
-					newslettertoString = newslettertoString + '1'
-				} else newslettertoString += '0'
-
 				const formData = new FormData()
 				formData.append('username', name)
 				formData.append('email', email)
 				formData.append('password', password)
-				formData.append('newsletter', newslettertoString)
-				if (avatar) {
-					formData.append('avatar', avatar)
-				}
 
 				try {
 					const { data } = await axios.post(
@@ -113,51 +97,28 @@ export default function SignUp({
 
 	return (
 		<>
-			<section className="">
-				<div className="w-full h-[0%] flex justify-end">
-					<button onClick={() => setDisplaySignUp(false)} className="mx-4">
+			<section className="flex flex-col w-11/12 h-full py-4 ">
+				<div className="w-full flex justify-end  h-0">
+					<button onClick={() => setDisplaySignUp(false)} className="mx-4  ">
 						✖️
 					</button>
 				</div>
-				<div className="text-lg text-gray-600"> S'inscrire</div>
+				<div className="text-lg text-gray-600  flex justify-center">
+					Sign Up
+				</div>
 
-				<form onSubmit={handleSubmit} className="">
+				<form
+					onSubmit={handleSubmit}
+					className="h-full flex flex-col justify-around "
+				>
 					<input
 						type="text"
-						placeholder="Nom d'utilisateur"
+						placeholder="Name"
 						name="name"
 						value={name}
 						onChange={handleNameChange}
 						className=" bg-white   border-b-2 leading-8  flex w-full text-red-marvel"
 					/>
-					<div
-						className={
-							avatar
-								? 'flex justify-around items-center '
-								: 'flex justify-center items-center '
-						}
-					>
-						<label
-							className="text-gray-400 hover:text-white w-1/2 border-2 border-solid border-gray-300 flex justify-center items-center hover:bg-red-marvel/50"
-							htmlFor="avatar"
-						>
-							Avatar
-						</label>
-						{avatar && (
-							<img
-								className="h-8 w-8 rounded-full object-cover "
-								src={URL.createObjectURL(avatar)}
-								alt="avatar"
-							/>
-						)}
-						<input
-							className=" bg-white  leading-8  flex  text-red-marvel w-0"
-							type="file"
-							id="avatar"
-							name="avatar"
-							onChange={handleAvatarChange}
-						/>
-					</div>
 
 					<input
 						type="email"
@@ -170,7 +131,7 @@ export default function SignUp({
 
 					<input
 						type="password"
-						placeholder="Mot de passe"
+						placeholder="Password"
 						name="p1"
 						value={password}
 						onChange={handleP1Change}
@@ -183,29 +144,12 @@ export default function SignUp({
 							shake ? 'shake' : ''
 						}  bg-white  border-b-2 rounded w-full leading-8 `}
 					/>
-					<div className="flex flex-col">
-						<div className="flex   text-gray-500">
-							<input
-								className="mr-4 flex "
-								type="checkbox"
-								id="check"
-								checked={newsletter}
-								onChange={() => setNewsletter(!newsletter)}
-							/>
-							<label htmlFor="check">S'inscrire à notre new's Letter</label>
-						</div>
-						<div className="text-gray-400 text-xs">
-							En m'inscrivant je confirme avoir lu et accepté les Termes &
-							Conditions et Politiques de Confidentialités de My Vinted. Je
-							confirme avoir au moins 18 ans.
-						</div>
-					</div>
 
 					<p className="text-red-500  sm:text-base md:text-lg lg:text-xl xl:text-2xl 2xl:text-3xl">
 						{alert}
 					</p>
 					<button className="bg-red-marvel mb-4 border-none rounded bg-blue-vinted text-white py-2 w-full">
-						S'inscrire
+						Here we go !
 					</button>
 					<button
 						className="flex justify-center text-xs text-red-marvel w-full"
@@ -214,7 +158,7 @@ export default function SignUp({
 							setDisplaySignUp(false)
 						}}
 					>
-						Tu as déjà un compte ? Connecte-toi !
+						Already have an account? Log in
 					</button>
 				</form>
 			</section>

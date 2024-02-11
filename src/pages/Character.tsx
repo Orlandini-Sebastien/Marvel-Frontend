@@ -29,7 +29,7 @@ const Character = () => {
 
 		const fetchData = async () => {
 			try {
-				const response = await axios.get(`https://site--backend-marvel--cfvhczrj5zks.code.run/comics/${id}`)
+				const response = await axios.get(`https://site--backend-marvel--cfvhczrj5zks.code.run/comic/${id}`)
 				console.log('response', response)
 				setData(response.data.comics)
 			} catch (error) {
@@ -38,7 +38,7 @@ const Character = () => {
 			setIsLoading(false)
 		}
 		fetchData()
-	})
+	},[])
 
 	{
 		console.log('Dans character >>>>>', data)
