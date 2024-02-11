@@ -238,19 +238,4 @@ const Characters = ({ data, setData }: typeCharacters) => {
 									onClick={() => handleFavorite(character)}
 									className="absolute z-20 top-3 right-3 text-3xl"
 								>
-									{Toggleheart(character) ? <div>❤️‍🔥</div> : <div>❤️</div>}
-								</button>
-							</div>
-						)
-					})}
-				</div>
-
-				<div className="text-white flex justify-center h-20 ">
-					{pagination()}
-				</div>
-			</section>
-		</div>
-	)
-}
-
-export default Characters
+			
