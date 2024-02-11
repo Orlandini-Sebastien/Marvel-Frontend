@@ -160,7 +160,11 @@ const Characters = ({ data, setData }: typeCharacters) => {
 		<div className="flex w-screen justify-center items-center">Loading</div>
 	) : (
 		<div>
-			<img className="w-full max-md:h-[50%]  fixed h-1/2   object-cover top-1/2 transform -translate-y-1/2 " src={oeil} alt="oeil" />
+			<img
+				className="w-full max-md:h-[50%]  fixed h-1/2   object-cover top-1/2 transform -translate-y-1/2 "
+				src={oeil}
+				alt="oeil"
+			/>
 			<section className="relative m-auto w-5/6">
 				<div className="flex justify-center items-center">
 					<label
@@ -238,4 +242,19 @@ const Characters = ({ data, setData }: typeCharacters) => {
 									onClick={() => handleFavorite(character)}
 									className="absolute z-20 top-3 right-3 text-3xl"
 								>
-			
+									{Toggleheart(character) ? <div>❤️‍🔥</div> : <div>❤️</div>}
+								</button>
+							</div>
+						)
+					})}
+				</div>
+
+				<div className="text-white flex justify-center h-20 ">
+					{pagination()}
+				</div>
+			</section>
+		</div>
+	)
+}
+
+export default Characters

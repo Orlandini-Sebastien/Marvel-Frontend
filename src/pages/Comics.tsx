@@ -107,7 +107,7 @@ const Comics = () => {
 				const response = await axios.get(
 					`https://site--backend-marvel--cfvhczrj5zks.code.run/comics?page=${page}&comic=${searchComic}`
 				)
-					console.log(response)
+				console.log(response)
 				setData(response.data)
 			} catch (error) {
 				console.log('catch app>>>', error)
@@ -146,87 +146,93 @@ const Comics = () => {
 		<div className="flex w-screen justify-center items-center">Loading ...</div>
 	) : (
 		<div>
-					<img className="w-full max-md:h-[50%]  fixed h-1/2   object-cover top-1/2 transform -translate-y-1/2  " src={fontComic} alt="oeil" /><section className="m-auto w-5/6">
-			<div className="flex justify-center items-center">
-				<label
-					htmlFor="searchComic"
-					className="flex justify-center  h-12 items-center font-bold text-white"
-				>
-					Comics
-				</label>
-				<input
-					type="text"
-					placeholder="search"
-					id="searchComic"
-					name="searchComic"
-					value={searchComic}
-					onChange={handlesearchComic}
-					className="bg-red-100 rounded h-7 mx-2"
-				/>
-			</div>
-			<div className="flex flex-wrap justify-center w-full ">
-				{data.map((comic: comicType, index: number) => {
-					return (
-						<div
-							className="relative xl:w-1/4 lg:w-1/3 md:w-1/2 cursor-alias  "
-							key={comic._id}
-						>
-							<div className="shadow-white shadow-xl relative  m-2  border-2 border-white border-solid  rounded  flex flex-col  h-96  ">
-								<img
-									className=" h-full object-cover"
-									src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
-									alt={`image de ${comic.title}`}
-								/>
-								<div className="absolute font-bold w-full  ">
+			<img
+				className="w-full max-md:h-[50%]  fixed h-1/2   object-cover top-1/2 transform -translate-y-1/2  "
+				src={fontComic}
+				alt="oeil"
+			/>
+			<section className="m-auto w-5/6">
+				<div className="flex justify-center items-center">
+					<label
+						htmlFor="searchComic"
+						className="flex justify-center  h-12 items-center font-bold text-white"
+					>
+						Comics
+					</label>
+					<input
+						type="text"
+						placeholder="search"
+						id="searchComic"
+						name="searchComic"
+						value={searchComic}
+						onChange={handlesearchComic}
+						className="bg-red-100 rounded h-7 mx-2"
+					/>
+				</div>
+				<div className="flex flex-wrap justify-center w-full ">
+					{data.map((comic: comicType, index: number) => {
+						return (
+							<div
+								className="relative xl:w-1/4 lg:w-1/3 md:w-1/2 cursor-alias  "
+								key={comic._id}
+							>
+								<div className="shadow-white shadow-xl relative  m-2  border-2 border-white border-solid  rounded  flex flex-col  h-96  ">
+									<img
+										className=" h-full object-cover"
+										src={`${comic.thumbnail.path}.${comic.thumbnail.extension}`}
+										alt={`image de ${comic.title}`}
+									/>
+									<div className="absolute font-bold w-full  ">
+										<div
+											className={
+												descriptionToggle[index]
+													? 'hidden'
+													: 'text-center  bg-red-300 bg-opacity-60 rounded font-extrabold my-2 mx-8'
+											}
+										>
+											{comic.title}
+										</div>
+									</div>
 									<div
 										className={
 											descriptionToggle[index]
-												? 'hidden'
-												: 'text-center  bg-red-300 bg-opacity-60 rounded font-extrabold my-2 mx-8'
+												? 'absolute  font-bold px-4 w-full bg-red-300 bg-opacity-60 flex rounded  flex-col h-[90%] overflow-auto  '
+												: 'hidden'
 										}
 									>
-										{comic.title}
+										<div className="flex mx-8 text-center font-extrabold my-2  ">
+											{comic.title}
+										</div>
+										<div>{comic.description}</div>
 									</div>
 								</div>
-								<div
+
+								<button
 									className={
-										descriptionToggle[index]
-											? 'absolute  font-bold px-4 w-full bg-red-300 bg-opacity-60 flex rounded  flex-col h-[90%] overflow-auto  '
+										comic.description
+											? 'absolute left-1/2 transform -translate-x-1/2  z-10 bg-slate-100 bg-opacity-70  rounded bottom-4 border-2 border-red-400 font-bold '
 											: 'hidden'
 									}
+									onClick={() => handleDescription(index)}
 								>
-									<div className="flex mx-8 text-center font-extrabold my-2  ">
-										{comic.title}
-									</div>
-									<div>{comic.description}</div>
-								</div>
+									DESCRIPTION
+								</button>
+								<button
+									onClick={() => handleFavorite(comic)}
+									className="absolute z-20 top-3 right-3 text-3xl"
+								>
+									{Toggleheart(comic) ? <div>❤️‍🔥</div> : <div>❤️</div>}
+								</button>
 							</div>
+						)
+					})}
+				</div>
 
-							<button
-								className={
-									comic.description
-										? 'absolute left-1/2 transform -translate-x-1/2  z-10 bg-slate-100 bg-opacity-70  rounded bottom-4 border-2 border-red-400 font-bold '
-										: 'hidden'
-								}
-								onClick={() => handleDescription(index)}
-							>
-								DESCRIPTION
-							</button>
-							<button
-								onClick={() => handleFavorite(comic)}
-								className="absolute z-20 top-3 right-3 text-3xl"
-							>
-								{Toggleheart(comic) ? <div>❤️‍🔥</div> : <div>❤️</div>}
-							</button>
-						</div>
-					)
-				})}
-			</div>
-
-			<div className="text-white flex justify-center h-20 ">{pagination()}</div>
-		</section>
+				<div className="text-white flex justify-center h-20 ">
+					{pagination()}
+				</div>
+			</section>
 		</div>
-		
 	)
 }
 
