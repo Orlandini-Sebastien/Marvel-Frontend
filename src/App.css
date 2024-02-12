@@ -1,0 +1,12 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+@font-face {
+    font-family: 'Marvel';
+    src: local('Marvel'), url(./font/Marvel/Marvel-Bold.ttf)format('truetype');
+}
+
+body{
+    background-color: black;
+}
