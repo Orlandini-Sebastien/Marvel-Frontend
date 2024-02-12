@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import axios from 'axios'
 import fontComic from '../assets/font-comics.png'
 import Cookies from 'js-cookie'
+import { motion } from 'framer-motion'
+
 type comicType = {
 	_id: string
 	title: string
@@ -44,7 +46,9 @@ const Comics = () => {
 					onClick={() => {
 						setPage(number)
 					}}
-					className="px-1"
+					className={`${
+						page - 10 > index || index > page + 10 ? 'hidden' : 'visible'
+					} px-1 `}
 				>
 					{number + 1}
 				</button>
@@ -107,35 +111,14 @@ const Comics = () => {
 				const response = await axios.get(
 					`https://site--backend-marvel--cfvhczrj5zks.code.run/comics?page=${page}&comic=${searchComic}`
 				)
-				console.log(response)
-				setData(response.data)
+				setData(response.data.results)
+				setNbpage(Math.ceil(response.data.count / 100))
 			} catch (error) {
 				console.log('catch app>>>', error)
 			}
 			setIsLoading(false)
 		}
 		fetchData()
-		const fetchPage = async () => {
-			try {
-				// Pour trouver le nombre de page
-				let firstPage: number = 0
-				let initial: number = 1
-				while (initial > 0) {
-					const ask = await axios.get(
-						`https://site--backend-marvel--cfvhczrj5zks.code.run/comics?page=${firstPage}&comic=${searchComic}`
-					)
-					initial = ask.data.length
-
-					if (initial !== 0) {
-						firstPage += 1
-					}
-				}
-				setNbpage(firstPage)
-			} catch (error) {
-				console.log('catch app>>>', error)
-			}
-		}
-		fetchPage()
 	}, [page, searchComic])
 
 	{
@@ -173,7 +156,8 @@ const Comics = () => {
 					{data.map((comic: comicType, index: number) => {
 						return (
 							<div
-								className="relative xl:w-1/4 lg:w-1/3 md:w-1/2 cursor-alias  "
+						
+								className="relative xl:w-1/4 lg:w-1/3 md:w-1/2 cursor-alias hover:scale-105  "
 								key={comic._id}
 							>
 								<div className="shadow-white shadow-xl relative  m-2  border-2 border-white border-solid  rounded  flex flex-col  h-96  ">
@@ -217,18 +201,19 @@ const Comics = () => {
 								>
 									DESCRIPTION
 								</button>
-								<button
+								<motion.button
+									whileTap={{ scale: 0.98 }}
 									onClick={() => handleFavorite(comic)}
 									className="absolute z-20 top-3 right-3 text-3xl"
 								>
 									{Toggleheart(comic) ? <div>❤️‍🔥</div> : <div>❤️</div>}
-								</button>
+								</motion.button>
 							</div>
 						)
 					})}
 				</div>
 
-				<div className="text-white flex justify-center h-20 ">
+				<div className="text-white flex justify-center h-20 flex-wrap">
 					{pagination()}
 				</div>
 			</section>

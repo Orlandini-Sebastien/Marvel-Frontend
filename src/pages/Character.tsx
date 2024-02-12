@@ -29,7 +29,7 @@ const Character = () => {
 		const fetchData = async () => {
 			try {
 				const response = await axios.get(
-					`https://site--backend-marvel--cfvhczrj5zks.code.run/comic/${id}`
+					`https://site--backend-marvel--cfvhczrj5zks.code.run/comics/${id}`
 				)
 				console.log('response', response)
 				setData(response.data.comics)
@@ -61,7 +61,7 @@ const Character = () => {
 						<div
 							className={
 								comic.thumbnail.path && comic.thumbnail.extension
-									? 'shadow-white shadow-xl relative min-w-52  m-2 border-2 border-solid border-white rounded flex flex-col w-[18%] h-96'
+									? 'shadow-white shadow-xl relative min-w-52  m-2 border-2 border-solid border-white rounded flex flex-col w-[18%] h-96  '
 									: 'hidden'
 							}
 							key={comic._id}
