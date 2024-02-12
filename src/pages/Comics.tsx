@@ -65,7 +65,7 @@ const Comics = () => {
 
 	const handleFavorite = (comic: comicType) => {
 		//Envoyer les préférences dans un cookie
-		console.log(comic._id)
+		
 
 		const depart = Cookies.get('FavoritComic')
 		if (depart) {
@@ -158,7 +158,7 @@ const Comics = () => {
 					{data.map((comic: comicType, index: number) => {
 						return (
 							<div
-								className="relative xl:w-1/4 lg:w-1/3 md:w-1/2 cursor-alias hover:scale-105  "
+								className="relative xl:w-1/4 lg:w-1/3 md:w-1/2  hover:scale-105  "
 								key={comic._id}
 							>
 								<div className="shadow-white shadow-xl relative  m-2  border-2 border-white border-solid  rounded  flex flex-col  h-96  ">

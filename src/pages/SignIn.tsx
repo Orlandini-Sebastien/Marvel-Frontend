@@ -62,7 +62,7 @@ const SignIn = ({
 						password: password,
 					}
 				)
-				console.log('response>>>>>>>', data)
+				
 				setConnection(data)
 				Cookies.set('userToken', data.token, { expires: 1 })
 				setToken(data.token)
@@ -78,9 +78,9 @@ const SignIn = ({
 				console.log('error >>>>', e)
 				const error = e as AxiosError
 
-				console.log('catch app>>>', error.response?.status)
+				
 				if (error.response?.status === 401) {
-					setAlert("L'email n'existe pas")
+					setAlert("Email does not exist")
 				}
 			}
 		}
@@ -127,7 +127,7 @@ const SignIn = ({
 				</p>
 
 				<button className="mt-8 mb-4 border-none rounded bg-red-marvel text-white py-2 flex w-full justify-center">
-					Se connecter
+					To log in
 				</button>
 				<button
 					className="flex justify-center text-xs text-red-marvel w-full"

@@ -65,14 +65,11 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 	}
 
 	useEffect(() => {
-		console.log('dedans')
-
 		const fetchData = async () => {
 			try {
 				const depart = Cookies.get('FavoritCharacter')
 				if (depart) {
 					const cookie = JSON.parse(depart)
-					console.log('cookie>>>', cookie)
 
 					const data: never[] = []
 					for (let i = 0; i < cookie.length; i++) {
@@ -85,8 +82,6 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 						})
 
 						data.push(response.data)
-
-						console.log('response', data)
 					}
 					setData(data)
 				} else {
@@ -106,7 +101,6 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 				const depart = Cookies.get('FavoritComic')
 				if (depart) {
 					const cookie = JSON.parse(depart)
-					console.log('cookie>>>', cookie)
 
 					const data2: never[] = []
 					for (let i = 0; i < cookie.length; i++) {
@@ -119,8 +113,6 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 						})
 
 						data2.push(response.data)
-
-						console.log('response', data2)
 					}
 					setData2(data2)
 				} else {
@@ -141,24 +133,19 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 		fetchData()
 	}, [])
 
-	{
-		console.log('Dans favorisCaracter >>>>>', data)
-	}
-
 	return isLoading ? (
 		<div className="flex h-[85vh] w-screen justify-center items-center text-white text-4xl">
 			Loading ...
 		</div>
 	) : (
 		<section>
-				<img
+			<img
 				className="w-full max-md:h-[50%]  fixed h-1/2   object-cover top-1/2 transform -translate-y-1/2 -z-10  "
 				src={favorit}
 				alt="oeil"
 			/>
 			{data.length > 0 ? (
 				<section className="m-auto w-5/6">
-					
 					<h1 className="flex justify-center  h-12 items-center font-bold text-black border border-solid rounded bg-white/70 shadow-white shadow-xl my-6">
 						FAVORITE CHARACTERS
 					</h1>
@@ -215,65 +202,64 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 					<div>😞</div>
 				</section>
 			)}
-			<section className='my-6'>
+			<section className="my-6">
 				{data2.length > 0 ? (
-				<section className="m-auto w-5/6">
-					<h1 className="flex justify-center  h-12 items-center font-bold text-black border border-solid rounded bg-white/70 shadow-white shadow-xl my-6">
-						FAVORITE COMICS
-					</h1>
-					<div className="flex flex-wrap justify-center w-full ">
-						{data2.map((favorisComic: favoriComicType, index: number) => {
-							return (
-								<div
-									className={
-										favorisComic.thumbnail.path &&
-										favorisComic.thumbnail.extension
-											? 'shadow-white shadow-xl relative min-w-52  m-2 border-2 border-solid border-white rounded flex flex-col w-[18%] h-96 overflow-auto'
-											: 'hidden'
-									}
-									key={favorisComic._id}
-								>
-									<img
-										className="h-full object-cover"
-										src={`${favorisComic.thumbnail.path}.${favorisComic.thumbnail.extension}`}
-										alt={`image de ${favorisComic.title}`}
-									/>
-
+					<section className="m-auto w-5/6">
+						<h1 className="flex justify-center  h-12 items-center font-bold text-black border border-solid rounded bg-white/70 shadow-white shadow-xl my-6">
+							FAVORITE COMICS
+						</h1>
+						<div className="flex flex-wrap justify-center w-full ">
+							{data2.map((favorisComic: favoriComicType, index: number) => {
+								return (
 									<div
 										className={
-											descriptionToggleComic[index]
-												? 'absolute  font-bold  w-full bg-red-300 bg-opacity-60 flex rounded  flex-col '
+											favorisComic.thumbnail.path &&
+											favorisComic.thumbnail.extension
+												? 'shadow-white shadow-xl relative min-w-52  m-2 border-2 border-solid border-white rounded flex flex-col w-[18%] h-96 overflow-auto'
 												: 'hidden'
 										}
+										key={favorisComic._id}
 									>
-										<div className="flex mx-8 text-center  justify-center font-extrabold my-2 ">
-											{favorisComic.title}
+										<img
+											className="h-full object-cover"
+											src={`${favorisComic.thumbnail.path}.${favorisComic.thumbnail.extension}`}
+											alt={`image de ${favorisComic.title}`}
+										/>
+
+										<div
+											className={
+												descriptionToggleComic[index]
+													? 'absolute  font-bold  w-full bg-red-300 bg-opacity-60 flex rounded  flex-col '
+													: 'hidden'
+											}
+										>
+											<div className="flex mx-8 text-center  justify-center font-extrabold my-2 ">
+												{favorisComic.title}
+											</div>
+											<div>{favorisComic.description}</div>
 										</div>
-										<div>{favorisComic.description}</div>
+										<button
+											className={
+												favorisComic.description
+													? 'absolute left-1/2 transform -translate-x-1/2  z-10 bg-slate-100 bg-opacity-70  rounded bottom-4 border-2 border-red-400 font-bold '
+													: 'hidden'
+											}
+											onClick={() => handleDescriptionComic(index)}
+										>
+											DESCRIPTION
+										</button>
 									</div>
-									<button
-										className={
-											favorisComic.description
-												? 'absolute left-1/2 transform -translate-x-1/2  z-10 bg-slate-100 bg-opacity-70  rounded bottom-4 border-2 border-red-400 font-bold '
-												: 'hidden'
-										}
-										onClick={() => handleDescriptionComic(index)}
-									>
-										DESCRIPTION
-									</button>
-								</div>
-							)
-						})}
-					</div>
-				</section>
-			) : (
-				<section className="text-white justify-center flex items-center font-extrabold flex-col">
-					<div>No favorite comics</div>
-					<div>😞</div>
-				</section>
-			)}
+								)
+							})}
+						</div>
+					</section>
+				) : (
+					<section className="text-white justify-center flex items-center font-extrabold flex-col">
+						<div>No favorite comics</div>
+						<div>😞</div>
+					</section>
+				)}
 			</section>
-			
 		</section>
 	)
 }
