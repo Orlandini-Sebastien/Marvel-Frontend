@@ -39,6 +39,29 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 	const [data, setData] = useState<Array<favorisCharacterType>>([])
 	const [data2, setData2] = useState<Array<favoriComicType>>([])
 	const navigate = useNavigate()
+	const descriptionToggleInitial: boolean[] = new Array(100).fill(false)
+	const [descriptionToggleCharacter, setDescriptionToggleCharacter] = useState<
+		Array<boolean>
+	>(descriptionToggleInitial)
+
+	const descriptionToggleInitial2: boolean[] = new Array(100).fill(false)
+	const [descriptionToggleComic, setDescriptionToggleComic] = useState<
+		Array<boolean>
+	>(descriptionToggleInitial2)
+
+	const handleDescriptionCharacter = (index: number) => {
+		const newValue = [...descriptionToggleCharacter]
+		if (newValue[index] === false) newValue[index] = true
+		else newValue[index] = false
+		setDescriptionToggleCharacter(newValue)
+	}
+
+	const handleDescriptionComic = (index: number) => {
+		const newValue = [...descriptionToggleComic]
+		if (newValue[index] === false) newValue[index] = true
+		else newValue[index] = false
+		setDescriptionToggleComic(newValue)
+	}
 
 	useEffect(() => {
 		console.log('dedans')
@@ -115,7 +138,7 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 			setIsLoading(false)
 		}
 		fetchData()
-	},[])
+	}, [])
 
 	{
 		console.log('Dans favorisCaracter >>>>>', data)
@@ -127,58 +150,123 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 		</div>
 	) : (
 		<section>
-			<section className="m-auto w-5/6">
-				<h1 className="flex justify-center  h-12 items-center font-bold text-white">
-					favoris Caracter
-				</h1>
-				<div className="flex flex-wrap justify-center w-full ">
-					{data.map((favorisCaracter: favorisCharacterType) => {
-						return (
-							<div
-								className={
-									favorisCaracter.thumbnail.path &&
-									favorisCaracter.thumbnail.extension
-										? 'shadow-white cursor-alias  shadow-xl relative min-w-52  m-2 border-2 border-solid border-white rounded flex flex-col w-[18%] h-96 overflow-auto'
-										: 'hidden'
-								}
-								key={favorisCaracter._id}
-							>
-								<img
-									className="h-full object-cover"
-									src={`${favorisCaracter.thumbnail.path}.${favorisCaracter.thumbnail.extension}`}
-									alt={`image de ${favorisCaracter.name}`}
-								/>
-							</div>
-						)
-					})}
-				</div>
+			{data.length > 0 ? (
+				<section className="m-auto w-5/6">
+					<h1 className="flex justify-center  h-12 items-center font-bold text-white">
+						favoris Caracter
+					</h1>
+					<div className="flex flex-wrap justify-center w-full ">
+						{data.map(
+							(favorisCaracter: favorisCharacterType, index: number) => {
+								return (
+									<div
+										className={
+											favorisCaracter.thumbnail.path &&
+											favorisCaracter.thumbnail.extension
+												? 'shadow-white cursor-alias  shadow-xl relative min-w-52  m-2 border-2 border-solid border-white rounded flex flex-col w-[18%] h-96 overflow-auto '
+												: 'hidden'
+										}
+										key={favorisCaracter._id}
+									>
+										<img
+											className="h-full object-cover"
+											src={`${favorisCaracter.thumbnail.path}.${favorisCaracter.thumbnail.extension}`}
+											alt={`image de ${favorisCaracter.name}`}
+										/>
+
+										<div
+											className={
+												descriptionToggleCharacter[index]
+													? 'absolute  font-bold  w-full bg-red-300 bg-opacity-60 flex rounded  flex-col '
+													: 'hidden'
+											}
+										>
+											<div className="flex mx-8 text-center  justify-center font-extrabold my-2 ">
+												{favorisCaracter.name}
+											</div>
+											<div>{favorisCaracter.description}</div>
+										</div>
+										<button
+											className={
+												favorisCaracter.description
+													? 'absolute left-1/2 transform -translate-x-1/2  z-10 bg-slate-100 bg-opacity-70  rounded bottom-4 border-2 border-red-400 font-bold '
+													: 'hidden'
+											}
+											onClick={() => handleDescriptionCharacter(index)}
+										>
+											DESCRIPTION
+										</button>
+									</div>
+								)
+							}
+						)}
+					</div>
+				</section>
+			) : (
+				<section className="text-white justify-center flex items-center font-extrabold flex-col">
+					<div>No favorite characters</div>
+					<div>😞</div>
+				</section>
+			)}
+			<section className='my-6'>
+				{data2.length > 0 ? (
+				<section className="m-auto w-5/6">
+					<h1 className="flex justify-center  h-12 items-center font-bold text-white">
+						favoris Comic
+					</h1>
+					<div className="flex flex-wrap justify-center w-full ">
+						{data2.map((favorisComic: favoriComicType, index: number) => {
+							return (
+								<div
+									className={
+										favorisComic.thumbnail.path &&
+										favorisComic.thumbnail.extension
+											? 'shadow-white shadow-xl relative min-w-52  m-2 border-2 border-solid border-white rounded flex flex-col w-[18%] h-96 overflow-auto'
+											: 'hidden'
+									}
+									key={favorisComic._id}
+								>
+									<img
+										className="h-full object-cover"
+										src={`${favorisComic.thumbnail.path}.${favorisComic.thumbnail.extension}`}
+										alt={`image de ${favorisComic.title}`}
+									/>
+
+									<div
+										className={
+											descriptionToggleComic[index]
+												? 'absolute  font-bold  w-full bg-red-300 bg-opacity-60 flex rounded  flex-col '
+												: 'hidden'
+										}
+									>
+										<div className="flex mx-8 text-center  justify-center font-extrabold my-2 ">
+											{favorisComic.title}
+										</div>
+										<div>{favorisComic.description}</div>
+									</div>
+									<button
+										className={
+											favorisComic.description
+												? 'absolute left-1/2 transform -translate-x-1/2  z-10 bg-slate-100 bg-opacity-70  rounded bottom-4 border-2 border-red-400 font-bold '
+												: 'hidden'
+										}
+										onClick={() => handleDescriptionComic(index)}
+									>
+										DESCRIPTION
+									</button>
+								</div>
+							)
+						})}
+					</div>
+				</section>
+			) : (
+				<section className="text-white justify-center flex items-center font-extrabold flex-col">
+					<div>No favorite comics</div>
+					<div>😞</div>
+				</section>
+			)}
 			</section>
-			<section className="m-auto w-5/6">
-				<h1 className="flex justify-center  h-12 items-center font-bold text-white">
-					favoris Comic
-				</h1>
-				<div className="flex flex-wrap justify-center w-full ">
-					{data2.map((favorisComic: favoriComicType) => {
-						return (
-							<div
-								className={
-									favorisComic.thumbnail.path &&
-									favorisComic.thumbnail.extension
-										? 'shadow-white shadow-xl relative min-w-52  m-2 border-2 border-solid border-white rounded flex flex-col w-[18%] h-96 overflow-auto'
-										: 'hidden'
-								}
-								key={favorisComic._id}
-							>
-								<img
-									className="h-full object-cover"
-									src={`${favorisComic.thumbnail.path}.${favorisComic.thumbnail.extension}`}
-									alt={`image de ${favorisComic.title}`}
-								/>
-							</div>
-						)
-					})}
-				</div>
-			</section>
+			
 		</section>
 	)
 }

@@ -61,16 +61,26 @@ export default function SignUp({
 		} else {
 			setAlert('')
 
-			if (name && email && password) {
-				const formData = new FormData()
-				formData.append('username', name)
-				formData.append('email', email)
-				formData.append('password', password)
-
+			const cookieCharactersString = Cookies.get('FavoritCharacter')
+			const cookieComicsString = Cookies.get('FavoritComic')
+			
+			if (
+				name &&
+				email &&
+				password &&
+				cookieCharactersString &&
+				cookieComicsString
+			) {
 				try {
 					const { data } = await axios.post(
 						'https://site--backend-marvel--cfvhczrj5zks.code.run/userMarvel/signup',
-						formData
+						{
+							username: name,
+							email: email,
+							password: password,
+							favorite_Characters: cookieCharactersString,
+							favorite_Comics: cookieComicsString,
+						}
 					)
 					console.log('response', data)
 					Cookies.set('userToken', data.token, { expires: 1, secure: true })

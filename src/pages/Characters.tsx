@@ -29,10 +29,11 @@ type typeCharacters = {
 }
 
 const Characters = ({ data, setData }: typeCharacters) => {
-	const descriptionToggleInitial: boolean[] = new Array(100).fill(false)
+	
 	const [isLoading, setIsLoading] = useState(true)
 
 	const [page, setPage] = useState(0)
+	const descriptionToggleInitial: boolean[] = new Array(100).fill(false)
 	const [descriptionToggle, setDescriptionToggle] = useState(
 		descriptionToggleInitial
 	)
@@ -170,8 +171,8 @@ const Characters = ({ data, setData }: typeCharacters) => {
 					{data.map((character: characterType, index: number) => {
 						return (
 						
-								<motion.div
-									whileTap={{ scale: 0.9 }}
+								<div
+								
 									key={character._id}
 									className="relative xl:w-1/4 lg:w-1/3 md:w-1/2  "
 								>
@@ -229,7 +230,7 @@ const Characters = ({ data, setData }: typeCharacters) => {
 									>
 										{Toggleheart(character) ? <div>❤️‍🔥</div> : <div>❤️</div>}
 									</motion.button>
-								</motion.div>
+								</div>
 						
 						)
 					})}
