@@ -67,6 +67,20 @@ const Favoris = ({ token, setDisplayLogin }: FavoType) => {
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
+				const autorisation = await axios.request({
+					headers: {
+						Authorization: `Bearer ${token}`,
+					},
+					method: 'POST',
+					url: `https://site--backend-marvel--cfvhczrj5zks.code.run/favoris`,
+				})
+				console.log(autorisation.data)
+			} catch (error) {
+				navigate('/')
+				setDisplayLogin(true)
+			}
+
+			try {
 				const depart = Cookies.get('FavoritCharacter')
 				if (depart) {
 					const cookie = JSON.parse(depart)
