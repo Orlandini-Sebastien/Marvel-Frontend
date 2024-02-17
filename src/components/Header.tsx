@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import fontHeader from '../assets/heroHeader.png'
 
+
 type HeaderProps = {
 	token: string
 	setToken: React.Dispatch<React.SetStateAction<string>>
@@ -55,10 +56,11 @@ const Header = ({
 
 						<div className="md:visible max-md:hidden flex justify-around w-1/2 h-full items-center">
 							<button
+						
 								className={`${
 									activePage === '/comics' &&
-									' bg-white text-black h-10  rounded'
-								} h-full flex items-center w-28 z-50 justify-center`}
+									' bg-white text-black '
+								}  flex items-center w-28 z-50 justify-center h-10 rounded`}
 								onClick={() => {
 									viewNavigate('/comics')
 									setActivePage('/comics')
@@ -68,8 +70,8 @@ const Header = ({
 							</button>
 							<button
 								className={`${
-									activePage === '/' && ' bg-white text-black h-10  rounded'
-								} h-full flex items-center w-28 z-50 justify-center`}
+									activePage === '/' && ' bg-white text-black '
+								}  flex items-center w-28 z-50 justify-center h-10  rounded`}
 								onClick={() => {
 									viewNavigate('/')
 									setActivePage('/')
@@ -80,8 +82,8 @@ const Header = ({
 							<button
 								className={`${
 									activePage === '/favoris' &&
-									' bg-white text-black h-10  rounded'
-								} h-full flex items-center w-28 z-50 justify-center`}
+									' bg-white text-black'
+								}  flex items-center w-28 z-50 justify-center h-10  rounded`}
 								onClick={() => {
 									viewNavigate('/favoris')
 									setActivePage('/favoris')
@@ -125,8 +127,8 @@ const Header = ({
 					<div className="max-md:visible md:hidden flex justify-around w-full h-full items-center">
 						<button
 							className={`${
-								activePage === '/comics' && ' bg-white text-black h-10  rounded'
-							} h-full flex items-center w-28 z-50 justify-center`}
+								activePage === '/comics' && ' bg-white text-black'
+							}  flex items-center w-28 z-50 justify-center h-10  rounded`}
 							onClick={() => {
 								viewNavigate('/comics')
 								setActivePage('/comics')
@@ -136,8 +138,8 @@ const Header = ({
 						</button>
 						<button
 							className={`${
-								activePage === '/' && ' bg-white text-black h-10  rounded'
-							} h-full flex items-center w-28 z-50 justify-center`}
+								activePage === '/' && ' bg-white text-black'
+							} flex items-center w-28 z-50 justify-center h-10  rounded`}
 							onClick={() => {
 								viewNavigate('/')
 								setActivePage('/')
@@ -148,8 +150,8 @@ const Header = ({
 						<button
 							className={`${
 								activePage === '/favoris' &&
-								' bg-white text-black h-10  rounded'
-							} h-full flex items-center w-28 z-50 justify-center`}
+								' bg-white text-black'
+							} flex items-center w-28 z-50 justify-center h-10  rounded`}
 							onClick={() => {
 								viewNavigate('/favoris')
 								setActivePage('/favoris')
