@@ -21,6 +21,7 @@ export default function SignUp({
 	setDisplaySignUp,
 	setToken,
 	activePage,
+	setActivePage
 }: SignUpProps): ReactElement {
 	const [name, setName] = useState('')
 	const [email, setEmail] = useState('')
@@ -106,7 +107,8 @@ export default function SignUp({
 		<>
 			<section className="flex flex-col w-11/12 h-full py-4 ">
 				<div className="w-full flex justify-end ">
-					<button onClick={() => setDisplaySignUp(false)} className="mx-4  ">
+					<button onClick={() => {setDisplaySignUp(false) 
+						if (activePage === '/favoris') setActivePage('/')}} className="mx-4  ">
 						✖️
 					</button>
 				</div>

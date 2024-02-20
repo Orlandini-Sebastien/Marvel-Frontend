@@ -18,8 +18,7 @@ const SignIn = ({
 	setDisplayLogin,
 	setDisplaySignUp,
 	setToken,
-	activePage,
-
+	activePage,setActivePage
 }: loginProps): ReactElement => {
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
@@ -83,7 +82,8 @@ const SignIn = ({
 	return (
 		<div className="flex flex-col w-11/12 h-full py-4">
 			<div className="w-full flex justify-end  ">
-				<button onClick={() => setDisplayLogin(false)} className="mx-4">
+				<button onClick={() => {setDisplayLogin(false) 
+					if (activePage === '/favoris') setActivePage('/')}} className="mx-4">
 					✖️
 				</button>
 			</div>
@@ -127,6 +127,7 @@ const SignIn = ({
 					className="flex justify-center text-xs text-red-marvel w-full"
 					onClick={() => {
 						setDisplayLogin(false)
+		
 						setDisplaySignUp(true)
 					}}
 				>

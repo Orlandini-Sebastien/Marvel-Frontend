@@ -127,7 +127,6 @@ const Comics = () => {
 
 	return isLoading ? (
 		<div className="flex h-[85vh] w-screen justify-center items-center text-white text-4xl">
-			
 			<div className="loader"></div>
 		</div>
 	) : (
@@ -147,9 +146,7 @@ const Comics = () => {
 						<label
 							htmlFor="searchComic"
 							className="flex justify-center  h-12 items-center font-bold  "
-						>
-					
-						</label>
+						></label>
 						<input
 							type="text"
 							placeholder="search"

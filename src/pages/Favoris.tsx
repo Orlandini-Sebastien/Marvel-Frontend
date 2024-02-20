@@ -31,7 +31,6 @@ type favoriComicType = {
 type FavoType = {
 	token: string
 	setDisplayLogin: React.Dispatch<React.SetStateAction<boolean>>
-	
 }
 
 const Favoris = ({ token, setDisplayLogin }: FavoType) => {

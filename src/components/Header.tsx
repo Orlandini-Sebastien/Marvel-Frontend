@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import Cookies from 'js-cookie'
 import fontHeader from '../assets/heroHeader.png'
 
-
 type HeaderProps = {
 	token: string
 	setToken: React.Dispatch<React.SetStateAction<string>>
@@ -22,6 +21,7 @@ const Header = ({
 	setActivePage,
 }: HeaderProps) => {
 	const navigate = useNavigate()
+
 	const viewNavigate = (newRoute: string) => {
 		// Navigate to the new route
 		if (!document.startViewTransition) {
@@ -32,6 +32,7 @@ const Header = ({
 			})
 		}
 	}
+
 	return (
 		<div className="shadow-xl shadow-white">
 			<img
@@ -56,10 +57,8 @@ const Header = ({
 
 						<div className="md:visible max-md:hidden flex justify-around w-1/2 h-full items-center">
 							<button
-						
 								className={`${
-									activePage === '/comics' &&
-									' bg-white text-black '
+									activePage === '/comics' && ' bg-white text-black '
 								}  flex items-center w-28 z-50 justify-center h-10 rounded`}
 								onClick={() => {
 									viewNavigate('/comics')
@@ -81,8 +80,7 @@ const Header = ({
 							</button>
 							<button
 								className={`${
-									activePage === '/favoris' &&
-									' bg-white text-black'
+									activePage === '/favoris' && ' bg-white text-black'
 								}  flex items-center w-28 z-50 justify-center h-10  rounded`}
 								onClick={() => {
 									viewNavigate('/favoris')
@@ -149,8 +147,7 @@ const Header = ({
 						</button>
 						<button
 							className={`${
-								activePage === '/favoris' &&
-								' bg-white text-black'
+								activePage === '/favoris' && ' bg-white text-black'
 							} flex items-center w-28 z-50 justify-center h-10  rounded`}
 							onClick={() => {
 								viewNavigate('/favoris')

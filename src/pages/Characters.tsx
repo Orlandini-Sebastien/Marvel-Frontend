@@ -166,9 +166,7 @@ const Characters = ({ data, setData }: typeCharacters) => {
 						<label
 							htmlFor="searchCharacter"
 							className="flex justify-center  h-12 items-center font-bold "
-						>
-						
-						</label>
+						></label>
 						<input
 							type="text"
 							placeholder="search"
